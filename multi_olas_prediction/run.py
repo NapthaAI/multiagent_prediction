@@ -11,8 +11,8 @@ logger = get_logger(__name__)
 async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cfg: Dict):
 
     # workflow = Workflow("Multiplayer Chat", job)
-    task1 = Task(name="olas_prediction_1", fn="multi_olas_prediction", worker_node=worker_nodes[0], orchestrator_node=orchestrator_node, flow_run=flow_run)
-    task2 = Task(name="olas_prediction_2", fn="multi_olas_prediction", worker_node=worker_nodes[1], orchestrator_node=orchestrator_node, flow_run=flow_run)
+    task1 = Task(name="olas_prediction_1", fn="olas_prediction", worker_node=worker_nodes[0], orchestrator_node=orchestrator_node, flow_run=flow_run)
+    task2 = Task(name="olas_prediction_2", fn="olas_prediction", worker_node=worker_nodes[1], orchestrator_node=orchestrator_node, flow_run=flow_run)
 
     response1 = await task1(prompt=inputs.prompt)
     logger.info(f"Response 1: {response1}")
