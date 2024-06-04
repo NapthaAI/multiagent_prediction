@@ -32,7 +32,7 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
         'confidence': (response1['confidence']+response2['confidence'])/2
     }
 
-    return response2
+    return combined_response
 
 if __name__ == "__main__":
     cfg_path = "multi_olas_prediction/component.yaml"
