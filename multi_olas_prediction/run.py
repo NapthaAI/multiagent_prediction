@@ -4,6 +4,7 @@ from naptha_sdk.task import Task
 from naptha_sdk.client.node import Node
 from typing import Dict
 import yaml
+import json
 from multiplayer_chat.utils import get_logger
 
 logger = get_logger(__name__)
@@ -24,6 +25,10 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
 
     response2 = await response2_future
     logger.info(f"Response 2: {response2}")
+
+    # json loads response1 and response2
+    response1 = json.loads(response1)
+    response2 = json.loads(response2)
 
     combined_response = {
         'p_yes': (response1['p_yes']+response2['p_yes'])/2,
