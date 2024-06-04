@@ -14,21 +14,13 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
     task1 = Task(name="olas_prediction_1", fn="multi_olas_prediction", worker_node=worker_nodes[0], orchestrator_node=orchestrator_node, flow_run=flow_run)
     task2 = Task(name="olas_prediction_2", fn="multi_olas_prediction", worker_node=worker_nodes[1], orchestrator_node=orchestrator_node, flow_run=flow_run)
 
-    # Start tasks concurrently
-    response1_future = asyncio.create_task(task1(prompt=inputs.prompt))
-    response2_future = asyncio.create_task(task2(prompt=inputs.prompt))
-
-    # Await responses
-    response1 = await response1_future
+    response1 = await task1(prompt=inputs.prompt)
     logger.info(f"Response 1: {response1}")
 
-    response2 = await response2_future
+    response2 = await task2(prompt=inputs.prompt)
     logger.info(f"Response 2: {response2}")
 
-    # Combine responses
-    combined_response = f"Response 1: {response1}\nResponse 2: {response2}"
-
-    return combined_response
+    return response2
 
 if __name__ == "__main__":
     cfg_path = "multi_olas_prediction/component.yaml"
