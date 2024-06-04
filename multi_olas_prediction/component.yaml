@@ -1,0 +1,26 @@
+name: multi_olas_prediction
+author: naptha
+version: 0.1.0
+description: An implementation of multi-olas prediction.
+license: MIT
+
+models:
+  default_model_provider: ollama
+  ollama: 
+    model: ollama/phi
+    max_tokens: 1000
+    temperature: 0
+    api_base: http://localhost:11434
+
+inputs:
+    save: false
+    location: ipfs
+
+outputs:
+    filename: output.txt
+    save: true
+    location: node
+
+implementation:
+    package:
+        entrypoint: run.py

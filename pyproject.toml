@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "multi_olas_prediction"
+version = "0.1.0"
+description = ""
+authors = ["Mohamed Arshath <marshath@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
