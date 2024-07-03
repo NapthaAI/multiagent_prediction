@@ -10,7 +10,7 @@ from multiplayer_chat.utils import get_logger
 logger = get_logger(__name__)
 
 async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cfg: Dict):
-
+    logger.info(f"Inputs: {inputs}")    
     task1 = Task(
         name="olas_prediction_1", 
         fn="olas_prediction", 
