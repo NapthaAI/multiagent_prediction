@@ -36,15 +36,15 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
     logger.info(f"Response 2: {response2}")
 
     # json loads response1 and response2
-    response1 = json.loads(response1)
-    response2 = json.loads(response2)
+    response1 = json.loads(response1[0])
+    response2 = json.loads(response2[0])
 
     combined_response = {
         'p_yes': (response1['p_yes'] + response2['p_yes']) / 2,
         'p_no': (response1['p_no'] + response2['p_no']) / 2,
         'confidence': (response1['confidence'] + response2['confidence']) / 2
     }
-
+    logger.info(f"Combined Response: {combined_response}")
     return combined_response
 
 if __name__ == "__main__":
