@@ -1,5 +1,5 @@
 import asyncio
-from multiplayer_chat.schemas import InputSchema
+from multi_olas_prediction.schemas import InputSchema
 from naptha_sdk.task import Task
 from naptha_sdk.client.node import Node
 from typing import Dict
