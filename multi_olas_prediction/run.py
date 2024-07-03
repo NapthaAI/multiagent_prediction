@@ -11,25 +11,38 @@ logger = get_logger(__name__)
 
 async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cfg: Dict):
 
-    # workflow = Workflow("Multiplayer Chat", job)
-    task1 = Task(name="olas_prediction_1", fn="olas_prediction", worker_node=worker_nodes[0], orchestrator_node=orchestrator_node, flow_run=flow_run)
-    task2 = Task(name="olas_prediction_2", fn="olas_prediction", worker_node=worker_nodes[1], orchestrator_node=orchestrator_node, flow_run=flow_run)
+    task1 = Task(
+        name="olas_prediction_1", 
+        fn="olas_prediction", 
+        worker_node=worker_nodes[0], 
+        orchestrator_node=orchestrator_node, 
+        flow_run=flow_run
+    )
+    task2 = Task(
+        name="olas_prediction_2", 
+        fn="olas_prediction", 
+        worker_node=worker_nodes[1], 
+        orchestrator_node=orchestrator_node, 
+        flow_run=flow_run
+    )
 
-    response1 = await task1(prompt=inputs.prompt)
+    # Run tasks in parallel
+    response1, response2 = await asyncio.gather(
+        task1(prompt=inputs.prompt),
+        task2(prompt=inputs.prompt)
+    )
+    
     logger.info(f"Response 1: {response1}")
-
-    response2 = await task2(prompt=inputs.prompt)
     logger.info(f"Response 2: {response2}")
-
 
     # json loads response1 and response2
     response1 = json.loads(response1)
     response2 = json.loads(response2)
 
     combined_response = {
-        'p_yes': (response1['p_yes']+response2['p_yes'])/2,
-        'p_no': (response1['p_no']+response2['p_no'])/2,
-        'confidence': (response1['confidence']+response2['confidence'])/2
+        'p_yes': (response1['p_yes'] + response2['p_yes']) / 2,
+        'p_no': (response1['p_no'] + response2['p_no']) / 2,
+        'confidence': (response1['confidence'] + response2['confidence']) / 2
     }
 
     return combined_response
