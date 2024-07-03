@@ -5,7 +5,7 @@ from naptha_sdk.client.node import Node
 from typing import Dict
 import yaml
 import json
-from multiplayer_chat.utils import get_logger
+from multi_olas_prediction.utils import get_logger
 
 logger = get_logger(__name__)
 
