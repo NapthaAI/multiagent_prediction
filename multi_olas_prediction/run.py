@@ -1,11 +1,8 @@
-import asyncio
-from multi_olas_prediction.schemas import InputSchema
+import json
+from typing import Dict
 from naptha_sdk.task import Task
 from naptha_sdk.task_engine import run_parallel_tasks
-from naptha_sdk.client.node import Node
-from typing import Dict
-import yaml
-import json
+from multi_olas_prediction.schemas import InputSchema
 from multi_olas_prediction.utils import get_logger
 
 logger = get_logger(__name__)
@@ -35,7 +32,8 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
     num_responses = 0
 
     for response in responses:
-        response = json.loads(response)
+        res = response.results
+        response = json.loads(res)
         combined_response['p_yes'] += response['p_yes']
         combined_response['p_no'] += response['p_no']
         combined_response['confidence'] += response['confidence']
