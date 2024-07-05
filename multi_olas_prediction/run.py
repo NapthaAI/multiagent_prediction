@@ -33,7 +33,7 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
 
     for response in responses:
         res = response.results
-        response = json.loads(res)
+        response = json.loads(res[0])
         combined_response['p_yes'] += response['p_yes']
         combined_response['p_no'] += response['p_no']
         combined_response['confidence'] += response['confidence']
