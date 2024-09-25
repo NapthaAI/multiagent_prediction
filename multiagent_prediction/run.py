@@ -2,8 +2,8 @@ import json
 from typing import Dict
 from naptha_sdk.task import Task
 from naptha_sdk.task_engine import run_parallel_tasks
-from multi_olas_prediction.schemas import InputSchema
-from multi_olas_prediction.utils import get_logger
+from multiagent_prediction.schemas import InputSchema
+from multiagent_prediction.utils import get_logger
 
 logger = get_logger(__name__)
 
@@ -11,8 +11,8 @@ async def run(inputs: InputSchema, worker_nodes, orchestrator_node, flow_run, cf
     logger.info(f"Inputs: {inputs}")    
     tasks = [
         Task(
-            name=f"olas_prediction_{i+1}", 
-            fn="olas_prediction", 
+            name=f"prediction_agent_{i+1}", 
+            fn="prediction_agent", 
             worker_node=worker_node, 
             orchestrator_node=orchestrator_node, 
             flow_run=flow_run

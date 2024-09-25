@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "multi_olas_prediction"
+name = "multiagent_prediction"
 version = "0.1.0"
 description = ""
 authors = ["Mohamed Arshath <marshath@gmail.com>"]
